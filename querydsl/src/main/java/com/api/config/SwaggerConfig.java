@@ -28,8 +28,6 @@ public class SwaggerConfig {
         .pathsToExclude("/user/profile")
         .build();
   }
-
-  // https://velog.io/@soyeon207/%EC%9A%B0%EB%8B%B9%ED%83%95%ED%83%95-Swagger-%EC%A0%81%EC%9A%A9%EA%B8%B0#4-%EF%B8%8F-jwt-token-%EC%84%A4%EC%A0%95
   public OpenApiCustomiser buildSecurityOpenApi() {
     // jwt token 설정 시 header에 값을 넣어줌
     return OpenApi -> OpenApi.addSecurityItem(new SecurityRequirement().addList("jwt access token"))

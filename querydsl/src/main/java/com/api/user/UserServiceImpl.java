@@ -1,7 +1,11 @@
 package com.api.user;
 
+import com.api.user.domain.QUsers;
 import com.api.user.repository.UserRepository;
 import com.api.user.domain.Users;
+import com.querydsl.core.Tuple;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +17,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
+  private final JPAQueryFactory jpaQueryFactory;
 
   @Override
   public List<Users> findAll() {
+    QUsers qUsers = QUsers.users;
+//    List<Tuple> usersTuple = jpaQueryFactory.select(qUsers.id, qUsers.createdAt, qUsers.updateAt, qUsers.email, qUsers.name, qUsers.role).from(qUsers).fetch();
     List<Users> usersList = userRepository.findAll();
-    usersList.stream().forEach(user -> user.setPassword(""));
 
     for (Users user : usersList) {
       System.out.println("user = " + user.toString());
