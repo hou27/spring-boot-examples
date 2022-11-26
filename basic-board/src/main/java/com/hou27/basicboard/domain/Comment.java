@@ -2,6 +2,7 @@ package com.hou27.basicboard.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -25,6 +27,7 @@ import org.springframework.data.annotation.LastModifiedDate;
     @Index(columnList = "createdAt"),
     @Index(columnList = "content")
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Comment {
   @Id
