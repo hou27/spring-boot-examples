@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test") // test profile을 사용하여 h2 DB로 테스트
 @DisplayName("JpaRepository Test")
 @Import(JpaConfig.class)
 @DataJpaTest
