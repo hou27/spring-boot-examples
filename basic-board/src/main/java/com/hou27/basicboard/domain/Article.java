@@ -1,17 +1,13 @@
 package com.hou27.basicboard.domain;
 
+import com.hou27.basicboard.domain.base.AuditingFields;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,10 +15,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @ToString
@@ -30,21 +22,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
     @Index(columnList = "createdAt"),
     @Index(columnList = "title")
 })
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  @CreatedDate
-  @Column(nullable = false)
-  private LocalDateTime createdAt;
-
-  @LastModifiedDate
-  @Column(nullable = false)
-  private LocalDateTime modifiedAt;
-
+public class Article extends AuditingFields {
   @Setter
   @Column(nullable = false)
   private String title;
@@ -95,11 +74,11 @@ public class Article {
       return false;
     }
     
-    return id != null && id.equals(article.id);
+    return this.getId() != null && this.getId().equals(article.getId());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(this.getId());
   }
 }
